@@ -5,12 +5,13 @@
 package main.controller;
 
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import main.dto.CategoryRequest;
-import main.dto.CategoryResponse;
-import main.service.CategoryService;
+import main.dto.ProductRequest;
+import main.dto.ProductResponse;
+import main.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,21 +33,26 @@ import org.springframework.web.bind.annotation.RestController;
  * @author hp
  */
 @RestController
-@RequestMapping("/api/categories")
-@CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping("/api/products")
+@CrossOrigin(origins = "http://localhost:9090")
 @Validated
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal=true, level=AccessLevel.PRIVATE)
-public class CategoryController {
-    CategoryService service;
+public class ProductController {
+    ProductService service;
     
-    @GetMapping(value="/{categoryId}",produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CategoryResponse> findByid(@PathVariable Integer categoryId){
-        return ResponseEntity.ok(service.findById(categoryId));
+    @GetMapping(value="/{productId}",produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProductResponse> findByid(@PathVariable Integer productId){
+        return ResponseEntity.ok(service.findById(productId));
+    }
+    
+    @GetMapping(value="/categories/{categoryId}",produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ProductResponse>> findByCategoryId(@PathVariable Integer categoryId){
+        return ResponseEntity.ok(service.findByCategoryId(categoryId));
     }
     
     @GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<CategoryResponse>> findAll(
+    public ResponseEntity<Page<ProductResponse>> findAll(
             @RequestParam(required=false,defaultValue="0") int page,
             @RequestParam(required=false,defaultValue="10") int size
     ){
@@ -59,18 +65,18 @@ public class CategoryController {
     
     
     @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CategoryResponse> create(@RequestBody @Valid CategoryRequest x){
+    public ResponseEntity<ProductResponse> create(@RequestBody @Valid ProductRequest x){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(x));
     }
     
-    @PutMapping(value="/{categoryId}",consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CategoryResponse> update(@PathVariable Integer categoryId, @RequestBody @Valid CategoryRequest x){
-        return ResponseEntity.ok(service.update(categoryId,x));
+    @PutMapping(value="/{productId}",consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProductResponse> update(@PathVariable Integer productId, @RequestBody @Valid ProductRequest x){
+        return ResponseEntity.ok(service.update(productId,x));
     }
     
-    @DeleteMapping("/{categoryId}")
-    public ResponseEntity<Void> delete(@PathVariable Integer categoryId){
-        service.delete(categoryId);
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Void> delete(@PathVariable Integer productId){
+        service.delete(productId);
         return ResponseEntity.noContent().build();
     }
 }

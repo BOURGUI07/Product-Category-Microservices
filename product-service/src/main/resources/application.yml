@@ -1,0 +1,12 @@
+spring: 
+    application: 
+        name: product-service
+server: 
+    port: 9090
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+category: 
+    api: 
+        url= http://localhost:8080/categories
