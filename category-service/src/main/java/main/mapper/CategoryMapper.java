@@ -24,6 +24,6 @@ public class CategoryMapper {
     }
     
     public CategoryResponse toDTO(Category c){
-        return new CategoryResponse(c.getId(),c.getName(),Optional.ofNullable(c.getDesc()));
+        return new CategoryResponse(c.getId(),c.getName(),Optional.ofNullable(c.getDesc()),c.getVersion());
     }
 }

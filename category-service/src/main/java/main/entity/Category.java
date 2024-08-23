@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -49,5 +50,8 @@ public class Category {
     
     @Column(name="desc",nullable=true,length=500)
     private String desc;
+    
+    @Version
+    private Integer version;
     
 }
