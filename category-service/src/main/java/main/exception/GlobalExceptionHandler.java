@@ -52,7 +52,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ResourceError> handleConstraintViolationException(ConstraintViolationException ex) {
-        // Collect all validation error messages
         String errorMessage = ex.getConstraintViolations().stream()
             .map(ConstraintViolation::getMessage)
             .collect(Collectors.joining(", "));
