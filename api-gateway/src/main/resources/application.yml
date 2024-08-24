@@ -8,10 +8,20 @@ spring:
                   uri: lb://CATEGORY-SERVICE
                   predicates: 
                     - Path: /api/categories/**
+                  filters: 
+                      - name: CircuitBreaker
+                        args: 
+                            name: category-service
+                            fallbackuri: forward:/categoryFallBack
                 - id: product-service
                   uri: lb://PRODUCT-SERVICE
                   predicates: 
                     - Path: /api/products/**
+                  filters: 
+                      - name: CircuitBreaker
+                        args: 
+                            name: product-service
+                            fallbackuri: forward:/productFallBack
 eureka:
     client:
         serviceUrl:
@@ -20,3 +30,17 @@ eureka:
         hostname: localhost
 server: 
     port: 8989
+    
+management: 
+    endpoints: 
+        web: 
+            exposure: 
+                include: hystrix.stream
+
+hystrix: 
+    command: 
+      fallbackcmd: 
+        execution: 
+            isolation: 
+                thread: 
+                    timeoutInMilliseconds: 5000
