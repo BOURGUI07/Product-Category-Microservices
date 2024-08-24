@@ -1,10 +1,12 @@
 spring: 
     application: 
-        name: category-service
+        name: CATEGORY-SERVICE
 server: 
     port: 8080
 eureka:
     client:
         serviceUrl:
             defaultZone: http://localhost:8761/eureka/
+    instance: 
+        hostname: localhost
             

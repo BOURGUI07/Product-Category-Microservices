@@ -1,0 +1,22 @@
+spring: 
+    application: 
+        name: GATEWAY-SERVICE
+    cloud: 
+        gateway: 
+            routes: 
+                - id: category-service
+                  uri: lb://CATEGORY-SERVICE
+                  predicates: 
+                    - Path: /api/categories/**
+                - id: product-service
+                  uri: lb://PRODUCT-SERVICE
+                  predicates: 
+                    - Path: /api/products/**
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+    instance: 
+        hostname: localhost
+server: 
+    port: 8989
