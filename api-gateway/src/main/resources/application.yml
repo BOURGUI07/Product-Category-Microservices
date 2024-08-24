@@ -22,12 +22,6 @@ spring:
                         args: 
                             name: product-service
                             fallbackuri: forward:/productFallBack
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:8761/eureka/
-    instance: 
-        hostname: localhost
 server: 
     port: 8989
     

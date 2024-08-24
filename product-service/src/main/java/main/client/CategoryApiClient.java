@@ -22,7 +22,7 @@ import org.springframework.web.client.RestClient;
 @Service
 @FieldDefaults(makeFinal=true,level=AccessLevel.PRIVATE)
 public class CategoryApiClient {
-    @NonFinal @Value("${category.api.url}")
+    @NonFinal @Value("${microservice.category-service.endpoints.endpoint.uri}")
     String baseUrl;
     
     RestClient client = RestClient.create(baseUrl);
